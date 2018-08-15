@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Koleksi;
+use Yajra\DataTables\DataTables;
+use Mockery\Exception;
+use Excel;
 
 class KoleksiController extends Controller
 {
@@ -13,7 +17,7 @@ class KoleksiController extends Controller
      */
     public function index()
     {
-        //
+        return view('koleksi');
     }
 
     /**
@@ -34,7 +38,13 @@ class KoleksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        Koleksi::create($input);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data koleksi ditambahkan'
+        ]);
     }
 
     /**
@@ -56,7 +66,8 @@ class KoleksiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $koleksi = Koleksi::findOrFail($id);
+        return $koleksi;
     }
 
     /**
@@ -68,7 +79,15 @@ class KoleksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $koleksi = Koleksi::findOrFail($id);
+
+        $koleksi->update($input);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data koleksi diupdate'
+        ]);
     }
 
     /**
@@ -79,6 +98,53 @@ class KoleksiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Koleksi::destroy($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data koleksi dihapus'
+        ]);
     }
+
+    public function apiKoleksi()
+    {
+        $koleksi = Koleksi::all();
+
+        return DataTables::of($koleksi)
+        ->addColumn('action', function($koleksi) {
+            return 
+            // '<a href="#" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show </a> '.
+            '<a onclick="editForm('.$koleksi->id.')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit </a> '.
+            '<a onclick="deleteData('.$koleksi->id.')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete </a> ';
+        })
+        ->rawColumns(['action'])->make(true);
+    }
+
+    public function koleksiExport()
+    {
+      $koleksi = Koleksi::select('jurnal', 'tahun', 'jumlah')->get();
+      return Excel::create('data_koleksi', function($excel) use ($koleksi) {
+        $excel->sheet('mysheet', function($sheet) use ($koleksi) {
+            $sheet->fromArray($koleksi);
+        });
+    })->download('xlsx');
+
+  }
+
+  public function koleksiImport(Request $request){
+    if($request->hasFile('file')){
+        $path = $request->file('file')->getRealPath();
+        $data = Excel::load($path, function($reader){})->get();
+        if(!empty($data) && $data->count()){
+            foreach ($data as $key => $value) {
+                $koleksi = new Koleksi();
+                $koleksi->jurnal = $value->jurnal;
+                $koleksi->tahun = $value->tahun;
+                $koleksi->jumlah = $value->jumlah;
+                $koleksi->save();
+            }
+        }
+    }
+
+    return back();
+}
 }

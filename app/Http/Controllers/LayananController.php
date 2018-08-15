@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Layanan;
+use Yajra\DataTables\DataTables;
+use Mockery\Exception;
+use Excel;
 
 class LayananController extends Controller
 {
@@ -13,7 +17,7 @@ class LayananController extends Controller
      */
     public function index()
     {
-        //
+        return view('layanan');
     }
 
     /**
@@ -34,7 +38,13 @@ class LayananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        Layanan::create($input);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data layanan ditambahkan'
+        ]);
     }
 
     /**
@@ -56,7 +66,8 @@ class LayananController extends Controller
      */
     public function edit($id)
     {
-        //
+        $layanan = Layanan::findOrFail($id);
+        return $layanan;
     }
 
     /**
@@ -68,7 +79,14 @@ class LayananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $layanan = Layanan::findOrFail($id);
+        $layanan->update();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data layanan diupdate'
+        ]);
     }
 
     /**
@@ -79,6 +97,52 @@ class LayananController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Layanan::destroy($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil dihapus'
+        ]);
+    }
+
+    public function apiLayanan()
+    {
+        $layanan = Layanan::all();
+        return DataTables::of($layanan)
+        ->addColumn('action', function($layanan) {
+            return 
+            // '<a href="#" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show </a> '.
+            '<a onclick="editForm('.$layanan->id.')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit </a> '.
+            '<a onclick="deleteData('.$layanan->id.')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete </a> ';
+        })
+        ->rawColumns(['action'])->make(true);
+    }
+
+        public function layananExport()
+    {
+        $layanan = Layanan::select('aktivitas', 'tahun', 'data_layanan')->get();
+        return Excel::create('data_layanan', function($excel) use ($layanan) {
+            $excel->sheet('mysheet', function($sheet) use ($layanan) {
+                $sheet->fromArray($layanan);
+            });
+        })->download('xlsx');
+    }
+
+    public function layananImport(Request $request)
+    {
+        if($request->hasFile('file')){
+            $path = $request->file('file')->getRealPath();
+            $data = Excel::load($path, function($reader){})->get();
+            if(!empty($data) && $data->count()){
+                foreach ($data as $key => $value) {
+                    $layanan = new Layanan();
+                    $layanan->aktivitas = $value->aktivitas;
+                    $layanan->tahun = $value->tahun;
+                    $layanan->data_layanan = $value->data_layanan;
+                    $layanan->save();
+                }
+            }
+        }
+
+        return back();
     }
 }

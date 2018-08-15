@@ -17,6 +17,7 @@ class CreateLayanansTable extends Migration
             $table->increments('id');
             $table->string('aktivitas');
             $table->string('tahun');
+            $table->integer('data_layanan');
             $table->timestamps();
         });
     }
