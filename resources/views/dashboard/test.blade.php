@@ -26,13 +26,20 @@
   .dc-chart rect.stack-deselected {
     opacity: 0.5;
   }
+  .basis {
+    margin: 0 auto;
+    width: 87%;
+    padding: 4em 3em;
+    object-position: center;
 
-  .container {
-    display:grid;
-    grid-template-columns:50% auto;
-    padding: 4em 1em;
   }
-</style>
+
+/*  .container {
+    display:grid;
+    grid-template-columns:100%;
+    padding: 4em 1em;
+    }*/
+  </style>
 </head>
 
 <body>
@@ -60,16 +67,130 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
-    <div id="jurnal" class="row justify-content-center align-items-center"></div>
-    <div id="tahun" class="row justify-content-center align-items-center"></div>
-    <div id="judulchart" class="row justify-content-center align-items-center"></div>
-    <div id="judulpie" class="row justify-content-center align-items-center"></div>
-    <div id="aktivitastahun" class="row justify-content-center align-items-center"></div>
-    <div id="layanansubjek" class="row justify-content-center align-items-center"></div>
-    
-    <div id="eksemplarchart" class="row justify-content-center align-items-center"></div>
-    <div id="eksemplarpie" class="row justify-content-center align-items-center"></div>
+  <div class="basis justify-content-center">
+    <div class="row">
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Jurnal</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="jurnal">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Tahun</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="tahun">
+              <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+                <a href="javascript:tahunChart.filterAll();dc.redrawAll();">reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Range</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="judulpie">
+              <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+                <a href="javascript:judulpie.filterAll();dc.redrawAll();">reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Judul</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="judulchart">
+              <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+                <a href="javascript:judulchart.filterAll();dc.redrawAll();">reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Range Data Eksemplar</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="eksemplarpie">
+              <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+                <a href="javascript:eksemplarpie.filterAll();dc.redrawAll();">reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Eksemplar</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="eksemplarchart">
+              <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+                <a href="javascript:eksemplarchart.filterAll();dc.redrawAll();">reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Aktivitas</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="aktivitastahun">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            <H4><strong>Layanan</strong></H4>
+          </div>
+          <div class="chart-stage">
+            <div id="layanansubjek">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
 {{--   <div class="container">

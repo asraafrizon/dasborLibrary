@@ -135,6 +135,7 @@ class KoleksiController extends Controller
         $path = $request->file('file')->getRealPath();
         $data = Excel::load($path, function($reader){})->get();
         if(!empty($data) && $data->count()){
+            Koleksi::truncate();
             foreach ($data as $key => $value) {
                 $koleksi = new Koleksi();
                 $koleksi->jurnal = $value->jurnal;

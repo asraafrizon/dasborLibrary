@@ -137,8 +137,8 @@ class InventoriController extends Controller
     {
         $path = $request->file('file')->getRealPath();
         $data = Excel::load($path, function($reader){})->get();
-        if(!empty($data) && $data->count())
-        {
+        if(!empty($data) && $data->count()){
+            Inventori::truncate();
             foreach ($data as $key => $value) {
                 $inventori = new Inventori();
                 $inventori->tahun = $value->tahun;

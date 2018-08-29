@@ -61,17 +61,17 @@ var tahunChart    = dc.barChart("#tahun");
 
 
 			tahunChart
-			.width(450)
-			.height(250)
+			.width(350)
+			.height(300)
 
-			.margins({top:0,left:-30,right:10,bottom:30})
+			.margins({top:20,left:-30,right:10,bottom:30})
 			.dimension(tahunDim)
 			.group(tahunGroup)
 			.controlsUseVisibility(true)
 			.x(d3.scaleOrdinal())
 			.xUnits(dc.units.ordinal)
-			.elasticY(true)
-			.brushOn (true)
+			.elasticY(false)
+			.brushOn (false)
 			.renderLabel(true)
 			.ordinalColors(['#005b96'])
 			.yAxisLabel(" ");

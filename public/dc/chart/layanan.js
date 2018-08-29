@@ -45,7 +45,7 @@ var layananSubjekChart    = dc.rowChart("#layanansubjek");
 
 
 			aktivitasTahunChart
-			.width(380)
+			.width(450)
 			.height(380)
 			.slicesCap(10)
 			.innerRadius(60)
@@ -54,7 +54,7 @@ var layananSubjekChart    = dc.rowChart("#layanansubjek");
 			.drawPaths(true)
 			.dimension(tahunDim)
 			.group(tahunGroup)
-			.ordinalColors(['#f27370','#22559c'])
+            .ordinalColors(['#011f4b','#03396c','#005b96','#6497b1','#b3cde0'])
 			.legend(dc.legend());
 
 
@@ -71,10 +71,10 @@ var layananSubjekChart    = dc.rowChart("#layanansubjek");
 
 
 			layananSubjekChart
-			.width(350).height(200)
+			.width(500).height(200)
 			.dimension(aktivitasDim)
 			.group(aktivitasGroup)
-			.ordinalColors(['#f27370','#22559c'])
+			.ordinalColors(['#2c3258','#363244','#7e7a80'])
 			.elasticX(true);
 
 

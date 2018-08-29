@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard.test');
+    return view('dashboard.dashboard');
 });
 
 // Route::get('koleksi', function () {

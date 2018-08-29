@@ -133,6 +133,7 @@ class LayananController extends Controller
             $path = $request->file('file')->getRealPath();
             $data = Excel::load($path, function($reader){})->get();
             if(!empty($data) && $data->count()){
+                Layanan::truncate();
                 foreach ($data as $key => $value) {
                     $layanan = new Layanan();
                     $layanan->aktivitas = $value->aktivitas;

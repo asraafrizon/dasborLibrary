@@ -92,7 +92,7 @@
                 .controlsUseVisibility(true)
                 .x(d3.scaleOrdinal())
                 .xUnits(dc.units.ordinal)
-                .margins({left: 80, top: 0, right: 10, bottom: 20})
+                .margins({left: 80, top: 20, right: 10, bottom: 20})
                 .brushOn(false)
                 .clipPadding(10)
                 .title(function(d) {

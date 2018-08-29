@@ -9,7 +9,7 @@
         <div class="panel-heading">
           <h4>Data Layanan
             <a onclick="addForm()" class="btn btn-primary pull-right" style="margin-top: -8px;">Add Layanan </a>
-            <a onclick="addExim()" class="btn btn-default pull-right" style="margin-top: -8px;"> Export/Import Data Layanan</a>
+            <a onclick="addExim()" class="btn btn-success pull-right" style="margin-top: -8px; margin-right: 1em;"> Export/Import Data Layanan</a>
           </h4>
         </div>
         <div class="panel-body">

@@ -20,7 +20,7 @@ define('LARAVEL_START', microtime(true));
 | loading any of our classes later on. It feels great to relax.
 |
 */
-
+//ganti .. dengan laravel
 require __DIR__.'/../vendor/autoload.php';
 
 /*
@@ -34,12 +34,12 @@ require __DIR__.'/../vendor/autoload.php';
 | the responses back to the browser and delight our users.
 |
 */
-
+//ganti .. dengan laravel
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 
 // $app->bind('path.public', function() {
-// return __DIR__;
+// return __DIR__.'/../..';
 // });
 
 /*
